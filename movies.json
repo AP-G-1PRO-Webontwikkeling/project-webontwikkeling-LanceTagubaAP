@@ -1,0 +1,164 @@
+
+     [
+      {
+        "id": 1,
+        "title": "The Matrix",
+        "description": "A mind-bending journey into a dystopian future.",
+        "release_year": 1999,
+        "is_downloadable": true,
+        "release_date": "1999-03-31",
+        "image_url": "https://raw.githubusercontent.com/LanceTagubaAP/jsonhost/main/matrix.jpg",
+        "genre": "Science Fiction",
+        "cast": ["Keanu Reeves", "Laurence Fishburne", "Carrie-Anne Moss"],
+        "director": {
+          "id": "D123",
+          "name": "Lana Wachowski",
+          "birth_date": "1965-06-21"
+          
+        }
+      },
+      {
+        "id": 2,
+        "title": "Inception",
+        "description": "A thrilling exploration of dreams within dreams.",
+        "release_year": 2010,
+        "is_downloadable": false,
+        "release_date": "2010-07-08",
+        "image_url": "https://raw.githubusercontent.com/LanceTagubaAP/jsonhost/main/inception.jpg",
+        "genre": "Science Fiction",
+        "cast": ["Leonardo DiCaprio", "Elliot Page", "Joseph Gordon-Levitt"],
+        "director": {
+          "id": "D124",
+          "name": "Christopher Nolan",
+          "birth_date": "1970-07-30"
+        }
+      },
+      {
+        "id": 3,
+        "title": "Pulp Fiction",
+        "description": "A non-linear crime film with a stellar ensemble cast.",
+        "release_year": 1994,
+        "is_downloadable": true,
+        "release_date": "1994-10-14",
+        "image_url": "https://raw.githubusercontent.com/LanceTagubaAP/jsonhost/main/pulpfiction.jpg",
+        "genre": "Crime",
+        "cast": ["John Travolta", "Samuel L. Jackson", "Uma Thurman"],
+        "director": {
+          "id": "D125",
+          "name": "Quentin Tarantino",
+          "birth_date": "1963-03-27"
+        }
+      },
+      {
+        "id": 4,
+        "title": "The Dark Knight",
+        "description": "Gotham City faces chaos with the rise of the Joker.",
+        "release_year": 2008,
+        "is_downloadable": true,
+        "release_date": "2008-07-18",
+        "image_url": "https://raw.githubusercontent.com/LanceTagubaAP/jsonhost/main/thedarkknight.jpg",
+        "genre": "Action",
+        "cast": ["Christian Bale", "Heath Ledger", "Aaron Eckhart"],
+        "director": {
+          "id": "D126",
+          "name": "Christopher Nolan",
+          "birth_date": "1970-07-30"
+        }
+      },
+      {
+        "id": 5,
+        "title": "Forrest Gump",
+        "description": "A heartwarming tale of a man's extraordinary life journey.",
+        "release_year": 1994,
+        "is_downloadable": false,
+        "release_date": "1994-07-06",
+        "image_url": "https://raw.githubusercontent.com/LanceTagubaAP/jsonhost/main/forrestgump.jpg",
+        "genre": "Drama",
+        "cast": ["Tom Hanks", "Robin Wright", "Gary Sinise"],
+        "director": {
+          "id": "D127",
+          "name": "Robert Zemeckis",
+          "birth_date": "1952-05-14"
+        }
+      },
+      {
+        "id": 6,
+        "title": "The Shawshank Redemption",
+        "description": "A tale of hope and redemption in Shawshank State Penitentiary.",
+        "release_year": 1994,
+        "is_downloadable": true,
+        "release_date": "1994-09-23",
+        "image_url": "https://raw.githubusercontent.com/LanceTagubaAP/jsonhost/main/shawshank.jpg",
+        "genre": "Drama",
+        "cast": ["Tim Robbins", "Morgan Freeman", "Bob Gunton"],
+        "director": {
+          "id": "D128",
+          "name": "Frank Darabont",
+          "birth_date": "1959-01-28"
+        }
+      },
+      {
+        "id": 7,
+        "title": "Fight Club",
+        "description": "An exploration of identity and consumer culture.",
+        "release_year": 1999,
+        "is_downloadable": false,
+        "release_date": "1999-10-15",
+        "image_url": "https://raw.githubusercontent.com/LanceTagubaAP/jsonhost/main/fightclub.jpg",
+        "genre": "Drama",
+        "cast": ["Edward Norton", "Brad Pitt", "Helena Bonham Carter"],
+        "director": {
+          "id": "D129",
+          "name": "David Fincher",
+          "birth_date": "1962-08-28"
+        }
+      },
+      {
+        "id": 8,
+        "title": "The Godfather",
+        "description": "A crime epic chronicling the Corleone family saga.",
+        "release_year": 1972,
+        "is_downloadable": true,
+        "release_date": "1972-03-24",
+        "image_url": "https://raw.githubusercontent.com/LanceTagubaAP/jsonhost/main/godfather.jpg",
+        "genre": "Crime",
+        "cast": ["Marlon Brando", "Al Pacino", "James Caan"],
+        "director": {
+          "id": "D130",
+          "name": "Francis Ford Coppola",
+          "birth_date": "1939-04-07"
+        }
+      },
+      {
+        "id": 9,
+        "title": "Star Wars: Episode IV - A New Hope",
+        "description": "The classic space opera that started the Star Wars saga.",
+        "release_year": 1977,
+        "is_downloadable": true,
+        "release_date": "1977-05-25",
+        "image_url": "https://raw.githubusercontent.com/LanceTagubaAP/jsonhost/main/starwars.jpg",
+        "genre": "Science Fiction",
+        "cast": ["Mark Hamill", "Harrison Ford", "Carrie Fisher"],
+        "director": {
+          "id": "D131",
+          "name": "George Lucas",
+          "birth_date": "1944-05-14"
+        }
+      },
+      {
+        "id": 10,
+        "title": "Jurassic Park",
+        "description": "An adventure where dinosaurs roam once again.",
+        "release_year": 1993,
+        "is_downloadable": false,
+        "release_date": "1993-06-11",
+        "image_url": "https://th.bing.com/th/id/OIG1.mK.Z_.lb0kc73qYGKTSy?pid=ImgGn",
+        "genre": "Adventure",
+        "cast": ["Sam Neill", "Laura Dern", "Jeff Goldblum"],
+        "director": {
+          "id": "D132",
+          "name": "Steven Spielberg",
+          "birth_date": "1946-12-18"
+        }
+      }
+    ]
