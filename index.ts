@@ -1,10 +1,10 @@
 import * as readline from 'readline-sync';
 import director from "./director.json";
-import data from "./movies.json";
+//import data from "./movies.json";
 import { Movie } from './types';
 
 const directors = director;
-const movies : Movie[] = data;
+//const movies : Movie[] = data;
 
   function displaymovie(movie: Movie): void {
     console.log(`\n- ${movie.title} (${movie.id})`);
@@ -33,7 +33,9 @@ function displayMenu(): void {
   console.log("3. Exit");
 }
 
-function main(){
+ async function main(){
+    const response = await fetch("https://raw.githubusercontent.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-LanceTagubaAP/main/movies.json?token=GHSAT0AAAAAACNZ6QZAA3YUO5RVIWWBQH6EZPBJC7Q");
+    const movies : Movie[]= await response.json();
     
     console.log("Welcome to the JSON data viewer!\n");
     
