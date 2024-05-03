@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Movies</title>
+</head>
+<body>
+    <form action="/" method="get" class="mb-3">
+        <div class="form-row align-items-end">
+            <div class="col">
+                <select name="sortField" class="form-control">
+                    <% for (let field of sortFields) { %>
+                        <option value="<%= field.value %>" <%= field.selected %>><%= field.text %></option> 
+                    <% } %>
+                </select>
+            </div>
+            <div class="col">
+                <select name="sortDirection" class="form-control">
+                    <% for (let direction of sortDirections) { %>
+                        <option value="<%= direction.value %>" <%= direction.selected %>><%= direction.text %></option> 
+                    <% } %>
+                </select>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Sort</button>
+            </div>
+        </div>
+    </form>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <% for (let field of sortFields) { %>
+                        <th scope="col">
+                            <a href="?sortField=<%= field.value %>&sortDirection=<%= field.value === sortField ? sortDirection === 'asc' ? 'desc' : 'asc' : 'asc' %>">
+                                <%= field.text %>
+                                <% if (field.value === sortField) { %>
+                                    <%- sortDirection === 'asc' ? '▲' : '▼' %>
+                                <% } %>
+                            </a>
+                        </th>
+                    <% } %>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let film of films) { %>
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="mr-2">
+                                    <img src=<%- film.image_url %> alt="Icon" class="rounded-circle" style="width: 40px; height: 40px;">
+                                </div>
+                                <div><%- film.title %></div>
+                            </div>
+                        </td>
+                        <td><%- film.release_date %></td>
+                        <td><%- film.director.name %></td>
+                        <td><%- film.genre %></td>
+                        <td>
+                            <% if (film.is_downloadable) { %>
+                                <div class="text-center">
+                                    <div class="rounded-circle bg-success" style="width: 20px; height: 20px;"></div> <!-- Green filled circle for downloadable -->
+                                </div>
+                            <% } else { %>
+                                <div class="text-center">
+                                    <div class="rounded-circle bg-danger" style="width: 20px; height: 20px;"></div> <!-- Red filled circle for not downloadable -->
+                                </div>
+                            <% } %>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
