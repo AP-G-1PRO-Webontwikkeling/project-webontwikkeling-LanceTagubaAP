@@ -19,10 +19,16 @@ app.get("/", (req, res) => {
 
     const sortField = typeof req.query.sortField === "string" ? req.query.sortField : "name";
     const sortDirection = typeof req.query.sortDirection === "string" ? req.query.sortDirection : "asc";
+
+    const searchTerm = typeof req.query.search === "string" ? req.query.search.toLowerCase() : "";
+
+    const filteredFilms = movies.filter(film => {
+        return film.title.toLowerCase().includes(searchTerm); // Filtering based on movie title
+    });
     
 
 
-    let sortedFilms = [...movies].sort((a, b) => {
+    let sortedFilms = [...filteredFilms].sort((a, b) => {
         if (sortField === "name") {
             return sortDirection === "asc" ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title);
         } else if (sortField === "releasteDate") {
@@ -67,11 +73,17 @@ app.get("/", (req, res) => {
         sortFields : sortFields,
         sortDirections: sortDirections,
         sortField: sortField,
-        sortDirection: sortDirection
+        sortDirection: sortDirection,
+        search : searchTerm
     });
 });
 
+app.get("/:title",(req,res) => {
+    
 
+    
+
+})
 
 
 app.listen(app.get("port"), async () => {
