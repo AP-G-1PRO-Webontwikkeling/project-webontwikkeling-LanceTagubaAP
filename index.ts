@@ -3,7 +3,7 @@ import director from "./director.json";
 //import data from "./movies.json";
 import { Movie } from './types';
 import express from "express";
-
+import { connectToDatabase, fetchAndInsertMovies } from "./database";
 
 
 const app = express();
@@ -14,7 +14,21 @@ app.set("view engine", "ejs");
 
 let movies : Movie[] = [];
 
-app.get("/", (req, res) => {
+app.get("/",async (req, res) => {
+    // Connect to MongoDB
+    const db = await connectToDatabase();
+    
+    // Fetch and insert movies if necessary
+    await fetchAndInsertMovies(db);
+
+    // Fetch movies from MongoDB
+    const moviesCollection = db.collection<Movie>('movies');
+    movies = await moviesCollection.find().toArray();
+
+
+
+
+
     /**Hier komt eerste pagina */
 
     const sortField = typeof req.query.sortField === "string" ? req.query.sortField : "name";
@@ -35,15 +49,17 @@ app.get("/", (req, res) => {
             return sortDirection === "asc" ? a.release_year - b.release_year : b.release_year - a.release_year;
         } else if (sortField === "director") {
             return sortDirection === "asc" ? a.director.name.localeCompare(b.director.name) : b.director.name.localeCompare(a.director.name);
-            
-        }else if (sortField === "genre") {
+        } else if (sortField === "genre") {
             return sortDirection === "asc" ? a.genre.localeCompare(b.genre) : b.genre.localeCompare(a.genre);
-            
-        }
-         else {
+        } else if (sortField === "downloadable") {
+            return sortDirection === "asc" ? a.is_downloadable === b.is_downloadable ? 0 :
+                a.is_downloadable ? -1 : 1 :
+                sortDirection === "asc" ? a.is_downloadable ? -1 : 1 : a.is_downloadable ? 1 : -1;
+        } else {
             return 0;
         }
     });
+    
 
     const sortFields = [
         { value: 'name', text: 'Name', selected: sortField === 'name' ? 'selected' : '' },
