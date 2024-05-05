@@ -6,7 +6,9 @@ export interface Movie {
 }
 
 export async function connectToDatabase(): Promise<Db> {
-    const client = new MongoClient('mongodb://localhost:27017');
+    const uri = "mongodb+srv://s143847:lancetagubaAP@sharedcluster.xwowfjs.mongodb.net/?retryWrites=true&w=majority&appName=SharedCluster"; // Fill in your MongoDB connection string here
+    const client = new MongoClient(uri);
+    
     await client.connect();
     console.log('Connected to MongoDB');
     return client.db('moviesDB');

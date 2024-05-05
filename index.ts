@@ -112,8 +112,7 @@ app.get("/movies/:title",(req,res) => {
 
 app.listen(app.get("port"), async () => {
     console.log("[server] http://localhost:" + app.get("port"));
-    const response = await fetch("https://raw.githubusercontent.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-LanceTagubaAP/main/movies.json?token=GHSAT0AAAAAACNZ6QZAA3YUO5RVIWWBQH6EZPBJC7Q");
-    movies = await response.json();
+    
     
 
     }
