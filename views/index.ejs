@@ -56,7 +56,7 @@
                                                 <div class="mr-2">
                                                     <img src=<%- film.image_url %> alt="Icon" class="rounded-circle" style="width: 40px; height: 40px;">
                                                 </div>
-                                                <div><%- film.title %></div>
+                                                <div><a href="/movies/<%= film.title %>"><%= film.title %></a></div>
                                             </div>
                                         </td>
                                         <td><%- film.release_date %></td>

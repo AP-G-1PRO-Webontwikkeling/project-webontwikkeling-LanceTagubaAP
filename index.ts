@@ -78,10 +78,18 @@ app.get("/", (req, res) => {
     });
 });
 
-app.get("/:title",(req,res) => {
-    
+app.get("/movies/:title",(req,res) => {
+    let title : string = req.params.title;
+    console.log(title);
 
-    
+    const myMovie = movies.find(movie => movie.title === title);
+
+    console.log(myMovie)
+
+
+    res.render("movie",{
+        movie : myMovie
+    })
 
 })
 

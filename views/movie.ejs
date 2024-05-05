@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Movies</title>
+</head>
+<body>
+    <div class="container mt-3">
+        <div class="row">
+            <!-- Nav Column -->
+            <div class="col-md-3">
+                <%- include("nav") %>
+            </div>
+            <!-- Main Content Column -->
+            <div class="col-md-9">
+                <main>
+                    <article>
+                        <h2><%= movie.title %></h2>
+                        <p><%= movie.description %></p>
+                        <img src="<%- movie.image_url %>" class="img-fluid" style="max-width: 300px;">
+                        
+                    </article>
+                </main>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
