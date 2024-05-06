@@ -4,11 +4,14 @@ import director from "./director.json";
 import { Movie } from './types';
 import express from "express";
 import { connectToDatabase, fetchAndInsertMovies } from "./database";
+import dotenv from "dotenv";
 
+dotenv.config();
 
 const app = express();
+const port = process.env.PORT || 3000;
 
-app.set("port", 3000);
+app.set("port", port);
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 

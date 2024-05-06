@@ -1,4 +1,8 @@
 import { MongoClient, Db, Collection } from 'mongodb';
+import dotenv from "dotenv";
+
+dotenv.config();
+
 
 export interface Movie {
     title: string;
@@ -6,7 +10,7 @@ export interface Movie {
 }
 
 export async function connectToDatabase(): Promise<Db> {
-    const uri = "mongodb+srv://s143847:lancetagubaAP@sharedcluster.xwowfjs.mongodb.net/?retryWrites=true&w=majority&appName=SharedCluster"; // Fill in your MongoDB connection string here
+    const uri = process.env.MONGO_URI;
     const client = new MongoClient(uri);
     
     await client.connect();
@@ -23,5 +27,6 @@ export async function fetchAndInsertMovies(db: Db): Promise<void> {
         await moviesCollection.insertMany(movies);
         console.log('Movies inserted into MongoDB');
     }
+
 }
 
