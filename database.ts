@@ -11,7 +11,7 @@ export interface Movie {
 
 export async function connectToDatabase(): Promise<Db> {
     const uri = process.env.MONGO_URI;
-    const client = new MongoClient(uri);
+    const client = new MongoClient(uri || "mongodb://localhost:27017");
     
     await client.connect();
     console.log('Connected to MongoDB');
