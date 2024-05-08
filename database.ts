@@ -1,17 +1,16 @@
 import { MongoClient, Db, Collection } from 'mongodb';
 import dotenv from "dotenv";
+import { Movie } from './types';
 
 dotenv.config();
+const uri = process.env.MONGO_URI;
+const client = new MongoClient(uri || "mongodb://localhost:27017");
 
+const moviesCollection: Collection<Movie> = client.db('movies').collection("movies");
 
-export interface Movie {
-    title: string;
-    // Andere filmkenmerken
-}
 
 export async function connectToDatabase(): Promise<Db> {
-    const uri = process.env.MONGO_URI;
-    const client = new MongoClient(uri || "mongodb://localhost:27017");
+    
     
     await client.connect();
     console.log('Connected to MongoDB');
@@ -28,5 +27,23 @@ export async function fetchAndInsertMovies(db: Db): Promise<void> {
         console.log('Movies inserted into MongoDB');
     }
 
+}
+async function exit() {
+    try {
+        await client.close();
+        console.log("Disconnected from database");
+    } catch (error) {
+        console.error(error);
+    }
+    process.exit(0);
+}
+export async function connect() {
+    try {
+        await client.connect();
+        console.log("Connected to database");
+        process.on("SIGINT", exit);
+    } catch (error) {
+        console.error(error);
+    }
 }
 

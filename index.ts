@@ -80,13 +80,6 @@ app.get("/",async (req, res) => {
         { value: 'desc', text: 'Descending', selected: sortDirection === 'desc' ? 'selected' : ''}
     ];
 
-
-
-
-
-
-
-
     res.render("index",{
         films : sortedFilms,
         sortFields : sortFields,
