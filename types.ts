@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 export interface Movie {
     id: number;
     title: string;
@@ -14,3 +15,14 @@ export interface Movie {
       birth_date: string;
     };
  }
+
+ export interface User {
+  _id?: ObjectId;
+  email: string;
+  password?: string;
+  role: "ADMIN" | "USER";
+}
+export interface FlashMessage {
+  type: "error" | "success" | "info"
+  message: string;
+}
