@@ -46,4 +46,11 @@ export async function connect() {
         console.error(error);
     }
 }
+export async function getMovies() : Promise<Movie[]>{
+    const db = await connectToDatabase();
+    const moviesCollection = db.collection<Movie>('movies');
+    return await moviesCollection.find().toArray();
+
+
+}
 

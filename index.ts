@@ -1,14 +1,16 @@
 import * as readline from 'readline-sync';
 import director from "./director.json";
 //import data from "./movies.json";
+import cookieParser from "cookie-parser";
 import { Movie } from './types';
 import express from "express";
-import { connectToDatabase, fetchAndInsertMovies } from "./database";
+import { connectToDatabase, fetchAndInsertMovies, getMovies } from "./database";
 import dotenv from "dotenv";
 
 dotenv.config();
 
 const app = express();
+app.use(cookieParser());
 const port = process.env.PORT || 3000;
 
 app.set("port", port);
@@ -20,13 +22,14 @@ let movies : Movie[] = [];
 app.get("/",async (req, res) => {
     // Connect to MongoDB
     const db = await connectToDatabase();
+    await fetchAndInsertMovies(db);
     
     // Fetch and insert movies if necessary
-    await fetchAndInsertMovies(db);
+    
 
     // Fetch movies from MongoDB
-    const moviesCollection = db.collection<Movie>('movies');
-    movies = await moviesCollection.find().toArray();
+    //const moviesCollection = db.collection<Movie>('movies');
+    movies = await getMovies();
 
 
 
@@ -104,7 +107,9 @@ app.get("/movies/:title",(req,res) => {
     })
 
 })
-
+app.get("/login", (req, res) => {
+    res.render("login");
+});
 
 app.listen(app.get("port"), async () => {
     console.log("[server] http://localhost:" + app.get("port"));
