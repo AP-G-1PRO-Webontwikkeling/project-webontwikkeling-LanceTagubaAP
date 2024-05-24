@@ -1,7 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
 <body class="d-flex align-items-center justify-content-center vh-100 bg-light">
     <div class="card p-4" style="max-width: 400px; width: 100%;">
-        <h3 class="card-title text-center">Register</h3>
-        <form action="/login" method="post">
+        <h3 class="card-title text-center mb-4">Register</h3>
+        <form action="/register" method="post">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" class="form-control" required/>
@@ -10,10 +19,10 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" class="form-control" required/>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
         </form>
         <% if (message) { %>
-            <p class="<%= message.type %>"><%= message.message %></p>
+            <p class="<%= message.type %> text-center mt-3"><%= message.message %></p>
         <% } %>
     </div>
     <!-- Include Bootstrap JS (optional) -->
@@ -21,3 +30,4 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+</html>

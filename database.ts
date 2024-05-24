@@ -1,4 +1,4 @@
-import { MongoClient, Db, Collection } from 'mongodb';
+import { MongoClient, Db, Collection, OptionalId } from 'mongodb';
 import dotenv from "dotenv";
 import { Movie, User } from './types';
 import bcrypt from "bcrypt";
@@ -95,10 +95,6 @@ async function createInitialUser() {
     await userCollection.insertMany(users);
     console.log('users inserted')
         
-        
-    
-
-    
 }
 
 export const getUserByUsername = async (username: string): Promise<User | null> => {
@@ -107,6 +103,30 @@ export const getUserByUsername = async (username: string): Promise<User | null> 
     return user;
 };
 
+
+export async function insertUser(user: OptionalId<User>) {
+    const saltRounds = 10; // Aantal rounds voor het hashing-algoritme
+
+    try {
+        // Controleer of het wachtwoord aanwezig is en een string is
+        if (typeof user.password !== "string") {
+            throw new Error("Ongeldig wachtwoord");
+        }
+
+        // Hash het wachtwoord met bcrypt
+        const hashedPassword = await bcrypt.hash(user.password, saltRounds);
+
+        // Vervang het oorspronkelijke wachtwoord door het gehashte wachtwoord
+        user.password = hashedPassword;
+
+        // Voeg de gebruiker toe aan de database
+        await userCollection.insertOne(user);
+        console.log("Gebruiker succesvol toegevoegd aan de database");
+    } catch (error) {
+        console.error("Fout bij het toevoegen van gebruiker aan de database:", error);
+        throw error; // Optioneel: gooi de fout verder omhoog voor afhandeling in hoger niveau
+    }
+}
 
 export async function login(username: string, password: string) {
     if (username === "" || password === "") {

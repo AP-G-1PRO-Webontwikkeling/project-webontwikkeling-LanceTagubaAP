@@ -2,9 +2,9 @@ import * as readline from 'readline-sync';
 import director from "./director.json";
 //import data from "./movies.json";
 
-import { Movie } from './types';
+import { Movie, User } from './types';
 import express from "express";
-import { connect ,getMovie, getMovieTitle, updateMovie} from "./database";
+import { connect ,getMovie, getMovieTitle, insertUser, updateMovie} from "./database";
 import dotenv from "dotenv";
 import { secureMiddleware } from './middleware/secureMiddleware';
 import { flashMiddleware } from './middleware/flashMiddleware';
@@ -52,6 +52,33 @@ app.get("/", (req, res) => {
 app.get("/register",(req , res) => {
     res.render("register")
 });
+
+app.post("/register", async(req , res) => {
+    const { username, password } = req.body;
+
+    
+
+    try {
+        // Controleer of gebruikersnaam en wachtwoord zijn verstrekt
+        if (!username || !password) {
+            return res.status(400).send("Gebruikersnaam en wachtwoord zijn verplicht");
+        }
+        let user : User =  {username: String(username),password: password,role: "USER"}
+
+        // Voeg de gebruiker toe aan de database
+        await insertUser( user);
+        console.log('inserted')
+
+        // Stuur een succesvolle reactie
+        res.status(200).send("Gebruiker succesvol geregistreerd");
+        res.redirect("/");
+    } catch (error) {
+        // Als er een fout optreedt, stuur een foutreactie
+        console.error("Fout bij registreren:", error);
+        res.status(500).send("Er is een interne serverfout opgetreden bij het registreren van de gebruiker");
+    }
+});
+
 
 
 
@@ -107,6 +134,8 @@ app.post("/edit", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
+
+
 
 app.listen(app.get("port"), async () => {
     try {
