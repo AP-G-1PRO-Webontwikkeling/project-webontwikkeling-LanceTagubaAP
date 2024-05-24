@@ -12,7 +12,8 @@ const mongoStore = new MongoDBStore({
 
 declare module 'express-session' {
     export interface SessionData {
-        message?: FlashMessage
+        message?: FlashMessage,
+        user?: User
     }
 }
 

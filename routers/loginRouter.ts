@@ -17,11 +17,15 @@ export function loginRouter() {
         try {
             let user: User = await login(username, password);
             delete user.password; // Remove password from user object. Sounds like a good idea.
+
+            req.session.user = user;
+
+            
             
             const token = jwt.sign(user, process.env.JWT_SECRET!, { expiresIn: "7d" });
             res.cookie("jwt", token, { httpOnly: true, sameSite: "lax", secure: true });
             req.session.message = { type: "success", message: "Login successful" };
-            res.redirect("/")
+            res.redirect("/movies")
         } catch (e: any) {
             req.session.message = { type: "error", message: e.message };
             res.redirect("/login");

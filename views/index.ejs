@@ -73,6 +73,11 @@
                                                 </div>
                                             <% } %>
                                         </td>
+                                        <td>
+                                            <!-- <% if (user && user.role === 'ADMIN') { %> Check if user is ADMIN -->
+                                                <a href="/movies/<%= film.title %>/edit" class="btn btn-warning btn-sm">Edit</a>
+                                            <!-- <% } %> -->
+                                        </td>
                                     </tr>
                                 <% } %>
                             </tbody>

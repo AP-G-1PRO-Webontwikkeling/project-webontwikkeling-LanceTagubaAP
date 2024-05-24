@@ -14,8 +14,9 @@ import path from "path";
 
 import { loginRouter } from './routers/loginRouter';
 import { homeRouter } from './routers/homeRouter';
-
+import {adminRouter} from './routers/adminRouter';
 import * as jwt from 'jsonwebtoken';
+import { roleMiddleware } from './middleware/roleMiddleware';
 
 
 dotenv.config();
@@ -33,7 +34,26 @@ app.set('views', path.join(__dirname, "views"));
 app.set("port", process.env.PORT || 3000);
 
 app.use("/", loginRouter());
-app.use("/", secureMiddleware, homeRouter());
+app.use("/movies", secureMiddleware, homeRouter());
+app.use("/admin", secureMiddleware, roleMiddleware("ADMIN"), adminRouter());
+
+app.get("/", (req, res) => {
+    const token = req.cookies.jwt;
+    if (token) {
+        // Als de gebruiker is ingelogd, stuur ze door naar /movies
+        res.redirect("/movies");
+    } else {
+        // Als de gebruiker niet is ingelogd, ga verder met de volgende middleware
+        res.redirect("/login");
+    }
+    
+});
+
+app.get("/register",(req , res) => {
+    res.render("register")
+});
+
+
 
 
 app.get("/movies/:title",async (req,res) => {
@@ -45,13 +65,6 @@ app.get("/movies/:title",async (req,res) => {
     })
 
 })
-
-app.get("/movies",async (req,res) => {
-    
-    res.redirect("/")
-
-})
-
 
 app.listen(app.get("port"), async () => {
     try {

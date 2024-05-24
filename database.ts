@@ -95,6 +95,13 @@ async function createInitialUser() {
     
 }
 
+export const getUserByUsername = async (username: string): Promise<User | null> => {
+    
+    const user = await userCollection.findOne({ username: username });
+    return user;
+};
+
+
 export async function login(username: string, password: string) {
     if (username === "" || password === "") {
         throw new Error("Username and password required");

@@ -68,7 +68,7 @@ export function homeRouter() {
             { value: 'asc', text: 'Ascending', selected: sortDirection === 'asc' ? 'selected' : '' },
             { value: 'desc', text: 'Descending', selected: sortDirection === 'desc' ? 'selected' : '' }
         ];
-
+        const user =
         res.render("index", {
             films: sortedFilms,
             sortFields: sortFields,
