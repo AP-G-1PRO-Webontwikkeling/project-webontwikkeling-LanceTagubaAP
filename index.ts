@@ -4,7 +4,7 @@ import director from "./director.json";
 
 import { Movie } from './types';
 import express from "express";
-import { connect ,getMovie} from "./database";
+import { connect ,getMovie, getMovieTitle, updateMovie} from "./database";
 import dotenv from "dotenv";
 import { secureMiddleware } from './middleware/secureMiddleware';
 import { flashMiddleware } from './middleware/flashMiddleware';
@@ -35,7 +35,7 @@ app.set("port", process.env.PORT || 3000);
 
 app.use("/", loginRouter());
 app.use("/movies", secureMiddleware, homeRouter());
-app.use("/admin", secureMiddleware, roleMiddleware("ADMIN"), adminRouter());
+app.use("/edit", secureMiddleware, roleMiddleware("ADMIN"), adminRouter());
 
 app.get("/", (req, res) => {
     const token = req.cookies.jwt;
@@ -56,15 +56,57 @@ app.get("/register",(req , res) => {
 
 
 
-app.get("/movies/:title",async (req,res) => {
-    let title : string = req.params.title;
+app.get("/movies/:id",async (req,res) => {
+    let id : number = parseInt(req.params.id);
     
-    const myMovie = await getMovie(title);
+    const myMovie = await getMovie(id);
     res.render("movie",{
         movie : myMovie
     })
 
-})
+});
+
+
+
+app.get("/edit/:id", async (req, res) => {
+    const movieId =parseInt(req.params.id) ;
+    try {
+        const movie = await getMovie(movieId);
+        const genres = ["Science Fiction", "Drama", "Action"];
+        if (movie) {
+            res.render("admin", { movie,genres });
+        } else {
+            res.status(404).send("Movie not found");
+        }
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+app.post("/edit", async (req, res) => {
+    const { id, title, description, release_date, genre, director, is_downloadable } = req.body;
+    
+    const movieId =parseInt(req.body.id);
+    try {
+        const movie = await getMovie(movieId);
+        if (!movie) {
+            return res.status(404).send("Movie not found");
+        }
+        await updateMovie(movieId, {
+            title,
+            description,
+            release_date,
+            genre,
+            cast: movie.cast, // Keep the original cast
+            director: { name: director },
+            is_downloadable: is_downloadable === "true",
+        });
+        
+        res.redirect("/movies");
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 app.listen(app.get("port"), async () => {
     try {

@@ -56,7 +56,7 @@
                                                 <div class="mr-2">
                                                     <img src=<%- film.image_url %> alt="Icon" class="rounded-circle" style="width: 40px; height: 40px;">
                                                 </div>
-                                                <div><a href="/movies/<%= film.title %>"><%= film.title %></a></div>
+                                                <div><a href="/movies/<%= film.id %>"><%= film.title %></a></div>
                                             </div>
                                         </td>
                                         <td><%- film.release_date %></td>
@@ -75,7 +75,7 @@
                                         </td>
                                         <td>
                                             <!-- <% if (user && user.role === 'ADMIN') { %> Check if user is ADMIN -->
-                                                <a href="/movies/<%= film.title %>/edit" class="btn btn-warning btn-sm">Edit</a>
+                                                <a href="/edit/<%= film.id %>" class="btn btn-warning btn-sm">Edit</a>
                                             <!-- <% } %> -->
                                         </td>
                                     </tr>

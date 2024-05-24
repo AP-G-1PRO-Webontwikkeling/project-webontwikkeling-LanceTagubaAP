@@ -66,12 +66,18 @@ export async function getMoviesWithSearch(search :string) : Promise<Movie[]>{
     return await movieCollection.find({ $text: { $search: search } }).toArray();
 }
 
-export async function getMovie(movieTitle:string) {
+export async function getMovie(id:number) {
     
-    
-    return movieCollection.findOne<Movie>({title:movieTitle})
+    return movieCollection.findOne<Movie>({id:id});
 }
 
+export async function getMovieTitle(title:string) {
+    
+    return movieCollection.findOne<Movie>({title:title});
+}
+export async function updateMovie(id:number,updatedMovie: Partial<Movie>) {
+   await movieCollection.updateOne({id : id},{$set:updatedMovie})
+}
 async function createInitialUser() {
     if (await userCollection.countDocuments() > 0) {
         return;

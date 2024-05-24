@@ -10,9 +10,9 @@ export interface Movie {
     genre: string;
     cast: string[];
     director: {
-      id: string;
+      id?: string;
       name: string;
-      birth_date: string;
+      birth_date?: string;
     };
  }
 
