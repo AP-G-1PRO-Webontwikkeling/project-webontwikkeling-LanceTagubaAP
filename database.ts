@@ -5,29 +5,30 @@ import bcrypt from "bcrypt";
 
 dotenv.config();
 export const MONGODB_URI = process.env.MONGODB_URI ?? "mongodb://localhost:27017";
-const client = new MongoClient(MONGODB_URI);
+export const client = new MongoClient(MONGODB_URI);
 
-const moviesCollection: Collection<Movie> = client.db('movies').collection("movies");
-export const userCollection = client.db("login-express").collection<User>("users");
+export const userCollection = client.db("login").collection<User>("users");
+export const movieCollection = client.db("movies").collection<Movie>("movies");
+
 
 const saltRounds : number = 10;
 
 
-export async function connectToDatabase(): Promise<Db> {
+// export async function connectToDatabase(): Promise<Db> {
     
     
-    await client.connect();
-    console.log('Connected to MongoDB');
-    return client.db('moviesDB');
-}
+//     await client.connect();
+//     console.log('Connected to MongoDB');
+//     return client.db('moviesDB');
+// }
 
-export async function fetchAndInsertMovies(db: Db): Promise<void> {
-    const moviesCollection: Collection<Movie> = db.collection('movies');
-    const moviesCount = await moviesCollection.countDocuments();
+export async function fetchAndInsertMovies(): Promise<void> {
+    
+    const moviesCount = await movieCollection.countDocuments();
     if (moviesCount === 0) {
         const response = await fetch("https://raw.githubusercontent.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-LanceTagubaAP/main/movies.json?token=GHSAT0AAAAAACNZ6QZAA3YUO5RVIWWBQH6EZPBJC7Q");
         const movies: Movie[] = await response.json();
-        await moviesCollection.insertMany(movies);
+        await movieCollection.insertMany(movies);
         console.log('Movies inserted into MongoDB');
     }
 
@@ -46,41 +47,59 @@ export async function connect() {
         await client.connect();
         console.log("Connected to database");
         await createInitialUser();
+        await fetchAndInsertMovies();
+        await movieCollection.createIndex({ title: "text" });
+        
         process.on("SIGINT", exit);
     } catch (error) {
         console.error(error);
     }
 }
 export async function getMovies() : Promise<Movie[]>{
-    const db = await connectToDatabase();
-    const moviesCollection = db.collection<Movie>('movies');
-    return await moviesCollection.find().toArray();
-
-
+    
+    return await movieCollection.find().toArray();
+}
+export async function getMoviesWithSearch(search :string) : Promise<Movie[]>{
+    if (search === "") {
+        return await getMovies();
+    }else
+    return await movieCollection.find({ $text: { $search: search } }).toArray();
 }
 
+export async function getMovie(movieTitle:string) {
+    
+    
+    return movieCollection.findOne<Movie>({title:movieTitle})
+}
 
 async function createInitialUser() {
     if (await userCollection.countDocuments() > 0) {
         return;
     }
-    let email : string | undefined = process.env.ADMIN_EMAIL;
+    let username : string | undefined = process.env.ADMIN_USER;
     let password : string | undefined = process.env.ADMIN_PASSWORD;
-    if (email === undefined || password === undefined) {
+    if (username === undefined || password === undefined) {
         throw new Error("ADMIN_EMAIL and ADMIN_PASSWORD must be set in environment");
     }
-    await userCollection.insertOne({
-        email: email,
-        password: await bcrypt.hash(password, saltRounds),
-        role: "ADMIN"
-    });
+    const users : User[] =[
+        {username: username,password: await bcrypt.hash(password, saltRounds),role: "ADMIN"},
+        {username: "user",password: await bcrypt.hash("123", saltRounds),role: "USER"}
+
+    ]
+    await userCollection.insertMany(users);
+    console.log('users inserted')
+        
+        
+    
+
+    
 }
 
-export async function login(email: string, password: string) {
-    if (email === "" || password === "") {
-        throw new Error("Email and password required");
+export async function login(username: string, password: string) {
+    if (username === "" || password === "") {
+        throw new Error("Username and password required");
     }
-    let user : User | null = await userCollection.findOne<User>({email: email});
+    let user : User | null = await userCollection.findOne<User>({username: username});
     if (user) {
         if (await bcrypt.compare(password, user.password!)) {
             return user;

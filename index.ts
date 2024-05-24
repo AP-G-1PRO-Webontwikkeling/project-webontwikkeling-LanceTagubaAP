@@ -4,7 +4,7 @@ import director from "./director.json";
 
 import { Movie } from './types';
 import express from "express";
-import { connectToDatabase, fetchAndInsertMovies, getMovies , connect } from "./database";
+import { connect ,getMovie} from "./database";
 import dotenv from "dotenv";
 import { secureMiddleware } from './middleware/secureMiddleware';
 import { flashMiddleware } from './middleware/flashMiddleware';
@@ -35,23 +35,20 @@ app.set("port", process.env.PORT || 3000);
 app.use("/", loginRouter());
 app.use("/", secureMiddleware, homeRouter());
 
-let movies : Movie[] = [];
-
-
 
 app.get("/movies/:title",async (req,res) => {
     let title : string = req.params.title;
-    console.log(title);
-    movies = await getMovies();
-
-    const myMovie = movies.find(movie => movie.title === title);
-
-    console.log(myMovie)
-
-
+    
+    const myMovie = await getMovie(title);
     res.render("movie",{
         movie : myMovie
     })
+
+})
+
+app.get("/movies",async (req,res) => {
+    
+    res.redirect("/")
 
 })
 
