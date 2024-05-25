@@ -4,7 +4,7 @@ import { Director, Movie, User } from './types';
 import bcrypt from "bcrypt";
 
 dotenv.config();
-export const MONGODB_URI = process.env.MONGODB_URI ?? "mongodb://localhost:27017";
+export const MONGODB_URI = process.env.MONGO_URI ?? "mongodb://localhost:27017";
 export const client = new MongoClient(MONGODB_URI);
 
 export const userCollection = client.db("login").collection<User>("users");
