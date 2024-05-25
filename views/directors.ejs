@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Directors</title>
+</head>
+<body>
+    <div class="container mt-3">
+        <div class="row">
+            <!-- Nav Column -->
+            <div class="col-md-3">
+                <%- include("nav") %>
+            </div>
+            <!-- Main Content Column -->
+            <div class="col-md-9">
+                <main>
+                    <!-- Search Form -->
+                    <form action="/directors" method="get" class="mb-3">
+                        <div class="form-row">
+                            <div class="col">
+                                <input type="text" name="search" class="form-control" placeholder="Search...">
+                            </div>
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Directors Table -->
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Birth Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (let director of directors) { %>
+                                    <tr>
+                                        <td><%= director.id %></td>
+                                        <td><a href="/directors/<%= director.id %>"><%= director.name %></a></td>
+                                        <td><%= director.birth_date %></td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
