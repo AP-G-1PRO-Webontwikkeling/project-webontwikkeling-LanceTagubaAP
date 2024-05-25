@@ -1,54 +1,175 @@
- [
-      {
-        "id": "D123",
-        "name": "Lana Wachowski",
-        "birth_date": "1965-06-21"
-      },
-      {
-        "id": "D124",
-        "name": "Christopher Nolan",
-        "birth_date": "1970-07-30"
-      },
-      {
-        "id": "D125",
-        "name": "Quentin Tarantino",
-        "birth_date": "1963-03-27"
-      },
-      {
-        "id": "D126",
-        "name": "Christopher Nolan",
-        "birth_date": "1970-07-30"
-      },
-      {
-        "id": "D127",
-        "name": "Robert Zemeckis",
-        "birth_date": "1952-05-14"
-      },
-      {
-        "id": "D128",
-        "name": "Frank Darabont",
-        "birth_date": "1959-01-28"
-      },
-      {
-        "id": "D129",
-        "name": "David Fincher",
-        "birth_date": "1962-08-28"
-      },
-      {
-        "id": "D130",
-        "name": "Francis Ford Coppola",
-        "birth_date": "1939-04-07"
-      },
-      {
-        "id": "D131",
-        "name": "George Lucas",
-        "birth_date": "1944-05-14"
-      },
-      {
-        "id": "D132",
-        "name": "Steven Spielberg",
-        "birth_date": "1946-12-18"
-      }
+[
+  {
+    "id": "D123",
+    "name": "Lana Wachowski",
+    "birth_date": "1965-06-21",
+    "movies": [
+      "The Matrix",
+      "The Matrix Reloaded",
+      "The Matrix Revolutions",
+      "Cloud Atlas",
+      "Jupiter Ascending",
+      "The Matrix Resurrections"
     ]
-
-  
+  },
+  {
+    "id": "D124",
+    "name": "Christopher Nolan",
+    "birth_date": "1970-07-30",
+    "movies": [
+      "Memento",
+      "Insomnia",
+      "Batman Begins",
+      "The Prestige",
+      "The Dark Knight",
+      "Inception",
+      "The Dark Knight Rises",
+      "Interstellar",
+      "Dunkirk",
+      "Tenet",
+      "Oppenheimer"
+    ]
+  },
+  {
+    "id": "D125",
+    "name": "Quentin Tarantino",
+    "birth_date": "1963-03-27",
+    "movies": [
+      "Reservoir Dogs",
+      "Pulp Fiction",
+      "Jackie Brown",
+      "Kill Bill: Volume 1",
+      "Kill Bill: Volume 2",
+      "Death Proof",
+      "Inglourious Basterds",
+      "Django Unchained",
+      "The Hateful Eight",
+      "Once Upon a Time in Hollywood"
+    ]
+  },
+  {
+    "id": "D126",
+    "name": "Christopher Nolan",
+    "birth_date": "1970-07-30",
+    "movies": [
+      "Memento",
+      "Insomnia",
+      "Batman Begins",
+      "The Prestige",
+      "The Dark Knight",
+      "Inception",
+      "The Dark Knight Rises",
+      "Interstellar",
+      "Dunkirk",
+      "Tenet",
+      "Oppenheimer"
+    ]
+  },
+  {
+    "id": "D127",
+    "name": "Robert Zemeckis",
+    "birth_date": "1952-05-14",
+    "movies": [
+      "Romancing the Stone",
+      "Back to the Future",
+      "Who Framed Roger Rabbit",
+      "Back to the Future Part II",
+      "Back to the Future Part III",
+      "Forrest Gump",
+      "Contact",
+      "What Lies Beneath",
+      "Cast Away",
+      "The Polar Express",
+      "Flight",
+      "The Walk",
+      "Allied",
+      "Welcome to Marwen",
+      "Pinocchio"
+    ]
+  },
+  {
+    "id": "D128",
+    "name": "Frank Darabont",
+    "birth_date": "1959-01-28",
+    "movies": [
+      "The Shawshank Redemption",
+      "The Green Mile",
+      "The Majestic",
+      "The Mist"
+    ]
+  },
+  {
+    "id": "D129",
+    "name": "David Fincher",
+    "birth_date": "1962-08-28",
+    "movies": [
+      "Alien 3",
+      "Se7en",
+      "The Game",
+      "Fight Club",
+      "Panic Room",
+      "Zodiac",
+      "The Curious Case of Benjamin Button",
+      "The Social Network",
+      "The Girl with the Dragon Tattoo",
+      "Gone Girl",
+      "Mank"
+    ]
+  },
+  {
+    "id": "D130",
+    "name": "Francis Ford Coppola",
+    "birth_date": "1939-04-07",
+    "movies": [
+      "The Godfather",
+      "The Godfather Part II",
+      "The Godfather Part III",
+      "Apocalypse Now",
+      "The Outsiders",
+      "Rumble Fish",
+      "The Cotton Club",
+      "Peggy Sue Got Married",
+      "Bram Stoker's Dracula"
+    ]
+  },
+  {
+    "id": "D131",
+    "name": "George Lucas",
+    "birth_date": "1944-05-14",
+    "movies": [
+      "THX 1138",
+      "American Graffiti",
+      "Star Wars: Episode IV - A New Hope",
+      "Star Wars: Episode I - The Phantom Menace",
+      "Star Wars: Episode II - Attack of the Clones",
+      "Star Wars: Episode III - Revenge of the Sith"
+    ]
+  },
+  {
+    "id": "D132",
+    "name": "Steven Spielberg",
+    "birth_date": "1946-12-18",
+    "movies": [
+      "Jaws",
+      "Close Encounters of the Third Kind",
+      "Raiders of the Lost Ark",
+      "E.T. the Extra-Terrestrial",
+      "Indiana Jones and the Temple of Doom",
+      "Indiana Jones and the Last Crusade",
+      "Jurassic Park",
+      "Schindler's List",
+      "Saving Private Ryan",
+      "A.I. Artificial Intelligence",
+      "Minority Report",
+      "Catch Me If You Can",
+      "War of the Worlds",
+      "Munich",
+      "Lincoln",
+      "Bridge of Spies",
+      "The Post",
+      "Ready Player One",
+      "West Side Story",
+      "The Fabelmans"
+    ]
+  }
+]
