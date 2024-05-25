@@ -131,7 +131,7 @@ app.post("/edit", async (req, res) => {
             is_downloadable: is_downloadable === "true",
         });
         
-        res.redirect("/movies");
+        res.redirect("/");
     } catch (error) {
         res.status(500).send("Internal Server Error");
     }
