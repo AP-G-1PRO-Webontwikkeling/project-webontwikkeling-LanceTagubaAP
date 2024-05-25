@@ -1,5 +1,6 @@
 import express from "express";
-import { getDirector } from "../database"; // Ensure this function is implemented
+import { getDirector, getDirectors } from "../database"; // Ensure this function is implemented
+import { Director } from "../types";
 
 export function directorRouter() {
     const router = express.Router();
@@ -16,6 +17,11 @@ export function directorRouter() {
         } catch (error) {
             res.status(500).send("Internal Server Error");
         }
+    });
+
+    router.get("/directors",async(req,res) => {
+        const directors : Director[] = await getDirectors();
+        res.render('directors', { directors });
     });
 
     return router;
