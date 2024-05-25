@@ -1,6 +1,6 @@
 import { MongoClient, Db, Collection, OptionalId } from 'mongodb';
 import dotenv from "dotenv";
-import { Movie, User } from './types';
+import { Director, Movie, User } from './types';
 import bcrypt from "bcrypt";
 
 dotenv.config();
@@ -9,6 +9,7 @@ export const client = new MongoClient(MONGODB_URI);
 
 export const userCollection = client.db("login").collection<User>("users");
 export const movieCollection = client.db("movies").collection<Movie>("movies");
+export const directorCollection = client.db("directors").collection<Director>("directors");
 
 
 const saltRounds : number = 10;
@@ -33,6 +34,17 @@ export async function fetchAndInsertMovies(): Promise<void> {
     }
 
 }
+export async function fetchAndInsertDirectors(): Promise<void> {
+    const directorsCount = await directorCollection.countDocuments();
+    if (directorsCount === 0) {
+        const response = await fetch("https://raw.githubusercontent.com/LanceTagubaAP/jsonhost/main/directors.json");
+        const directors: Director[] = await response.json();
+        await directorCollection.insertMany(directors);
+        console.log('Directors inserted into MongoDB');
+    } else {
+        console.log('Directors already exist in the database');
+    }
+}
 async function exit() {
     try {
         await client.close();
@@ -48,6 +60,7 @@ export async function connect() {
         console.log("Connected to database");
         await createInitialUser();
         await fetchAndInsertMovies();
+        await fetchAndInsertDirectors();
         await movieCollection.createIndex({ title: "text" });
         
         process.on("SIGINT", exit);
@@ -59,6 +72,17 @@ export async function getMovies() : Promise<Movie[]>{
     
     return await movieCollection.find().toArray();
 }
+export async function getDirectors() : Promise<Director[]>{
+    
+    return await directorCollection.find().toArray();
+}
+export async function getDirector(id:string) {
+    
+    return directorCollection.findOne<Director>({id:id});
+}
+
+
+
 export async function getMoviesWithSearch(search :string) : Promise<Movie[]>{
     if (search === "") {
         return await getMovies();

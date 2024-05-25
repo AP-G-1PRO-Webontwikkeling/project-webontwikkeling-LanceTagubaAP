@@ -25,7 +25,13 @@
                         <img src="<%- movie.image_url %>" class="img-fluid" style="max-width: 300px;">
                         <p><strong>Release Date:</strong> <%= movie.release_date %></p>
                         <p><strong>Genre:</strong> <%= movie.genre %></p>
-                        <p><strong>Director:</strong> <%= movie.director.name %> (born <%= movie.director.birth_date %>)</p>
+                        <p>
+                            <strong>Director:</strong> 
+                            <a href="/directors/<%= movie.director.id %>">
+                                <%= movie.director.name %>
+                            </a> 
+                            (born <%= movie.director.birth_date %>)
+                        </p>
                         <p><strong>Cast:</strong> <%= movie.cast.join(', ') %></p>
                         <p><strong>Downloadable:</strong> <%= movie.is_downloadable ? 'Yes' : 'No' %></p>
                         

@@ -26,3 +26,9 @@ export interface FlashMessage {
   type: "error" | "success" | "info"
   message: string;
 }
+export interface Director {
+  id: string;
+  name: string;
+  birth_date: string;
+  movies: string[];
+}

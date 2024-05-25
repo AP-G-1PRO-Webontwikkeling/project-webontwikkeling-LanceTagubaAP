@@ -17,6 +17,7 @@ import { homeRouter } from './routers/homeRouter';
 import {adminRouter} from './routers/adminRouter';
 import * as jwt from 'jsonwebtoken';
 import { roleMiddleware } from './middleware/roleMiddleware';
+import { directorRouter } from './routers/directorRouter';
 
 
 dotenv.config();
@@ -34,6 +35,7 @@ app.set('views', path.join(__dirname, "views"));
 app.set("port", process.env.PORT || 3000);
 
 app.use("/", loginRouter());
+app.use("/",directorRouter());
 app.use("/movies", secureMiddleware, homeRouter());
 app.use("/edit", secureMiddleware, roleMiddleware("ADMIN"), adminRouter());
 
