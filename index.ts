@@ -36,7 +36,7 @@ app.set("port", process.env.PORT || 3000);
 
 app.use("/", loginRouter());
 app.use("/",directorRouter());
-app.use("/movies", secureMiddleware, homeRouter());
+app.use("/", secureMiddleware, homeRouter());
 app.use("/edit", secureMiddleware, roleMiddleware("ADMIN"), adminRouter());
 
 app.get("/", (req, res) => {

@@ -80,6 +80,12 @@ export async function getDirector(id:string) {
     
     return directorCollection.findOne<Director>({id:id});
 }
+export async function getDirectorsWithSearch(search :string) : Promise<Director[]>{
+    if (search === "") {
+        return await getDirectors();
+    }else
+    return await directorCollection.find({ $text: { $search: search } }).toArray();
+}
 
 
 

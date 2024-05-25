@@ -20,6 +20,7 @@ export function directorRouter() {
     });
 
     router.get("/directors",async(req,res) => {
+        
         const directors : Director[] = await getDirectors();
         res.render('directors', { directors });
     });

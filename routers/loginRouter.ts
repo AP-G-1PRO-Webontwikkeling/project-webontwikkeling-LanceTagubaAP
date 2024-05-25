@@ -25,7 +25,7 @@ export function loginRouter() {
             const token = jwt.sign(user, process.env.JWT_SECRET!, { expiresIn: "7d" });
             res.cookie("jwt", token, { httpOnly: true, sameSite: "lax", secure: true });
             req.session.message = { type: "success", message: "Login successful" };
-            res.redirect("/movies")
+            res.redirect("/")
         } catch (e: any) {
             req.session.message = { type: "error", message: e.message };
             res.redirect("/login");
