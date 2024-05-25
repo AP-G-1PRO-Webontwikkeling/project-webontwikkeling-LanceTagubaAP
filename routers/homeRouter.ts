@@ -1,10 +1,11 @@
 import express from "express";
 import { fetchAndInsertMovies, getMovies, getMoviesWithSearch } from "../database";
+import { secureMiddleware } from "../middleware/secureMiddleware";
 
 export function homeRouter() {
     const router = express.Router();
 
-    router.get("/", async (req, res) => {
+    router.get("/movies", async (req, res) => {
         // Connect to MongoDB
 
 
@@ -13,12 +14,7 @@ export function homeRouter() {
 
         // Fetch movies from MongoDB
         //const moviesCollection = db.collection<Movie>('movies');
-        const movies = await getMovies();
-
-
-
-
-
+        
         /**Hier komt eerste pagina */
 
         const sortField = typeof req.query.sortField === "string" ? req.query.sortField : "name";
@@ -77,6 +73,10 @@ export function homeRouter() {
             sortDirection: sortDirection,
             search: searchTerm
         });
+    });
+    router.post("/logout", secureMiddleware, async (req, res) => {
+        res.clearCookie("jwt");
+        res.redirect("/login");
     });
 
     return router;

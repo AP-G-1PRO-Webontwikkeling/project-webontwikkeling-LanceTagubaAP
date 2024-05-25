@@ -34,22 +34,10 @@ app.set('views', path.join(__dirname, "views"));
 
 app.set("port", process.env.PORT || 3000);
 
-app.use("/", loginRouter());
-app.use("/",directorRouter());
-app.use("/", secureMiddleware, homeRouter());
-app.use("/edit", secureMiddleware, roleMiddleware("ADMIN"), adminRouter());
 
-app.get("/", (req, res) => {
-    const token = req.cookies.jwt;
-    if (token) {
-        // Als de gebruiker is ingelogd, stuur ze door naar /movies
-        res.redirect("/movies");
-    } else {
-        // Als de gebruiker niet is ingelogd, ga verder met de volgende middleware
-        res.redirect("/login");
-    }
-    
-});
+
+
+app.use("/login", loginRouter());
 
 app.get("/register",(req , res) => {
     res.render("register")
@@ -72,7 +60,7 @@ app.post("/register", async(req , res) => {
         console.log('inserted')
 
         // Stuur een succesvolle reactie
-        res.status(200).send("Gebruiker succesvol geregistreerd");
+        
         res.redirect("/");
     } catch (error) {
         // Als er een fout optreedt, stuur een foutreactie
@@ -80,6 +68,28 @@ app.post("/register", async(req , res) => {
         res.status(500).send("Er is een interne serverfout opgetreden bij het registreren van de gebruiker");
     }
 });
+
+
+app.use(secureMiddleware);
+app.use("/", secureMiddleware, homeRouter());
+app.use("/",directorRouter());
+app.use("/edit", secureMiddleware, roleMiddleware("ADMIN"), adminRouter());
+
+
+
+app.get("/", (req, res) => {
+    const token = req.cookies.jwt;
+    if (token) {
+        // Als de gebruiker is ingelogd, stuur ze door naar /movies
+        res.redirect("/movies");
+    } else {
+        // Als de gebruiker niet is ingelogd, ga verder met de volgende middleware
+        res.redirect("/login");
+    }
+    
+});
+
+
 
 
 
