@@ -27,7 +27,7 @@ export async function fetchAndInsertMovies(): Promise<void> {
     
     const moviesCount = await movieCollection.countDocuments();
     if (moviesCount === 0) {
-        const response = await fetch("https://raw.githubusercontent.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-LanceTagubaAP/main/movies.json?token=GHSAT0AAAAAACNZ6QZAA3YUO5RVIWWBQH6EZPBJC7Q");
+        const response = await fetch("https://raw.githubusercontent.com/AP-G-1PRO-Webontwikkeling/project-webontwikkeling-LanceTagubaAP/main/movies.json");
         const movies: Movie[] = await response.json();
         await movieCollection.insertMany(movies);
         console.log('Movies inserted into MongoDB');
